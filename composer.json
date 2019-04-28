@@ -1,0 +1,54 @@
+{
+  "name": "contributte/oauth2-client",
+  "description": "Integration of league/oauth2-client into Nette framework",
+  "keywords": [
+    "nette",
+    "oauth2",
+    "client"
+  ],
+  "type": "library",
+  "license": "MPL-2.0",
+  "homepage": "https://github.com/contributte/oauth2-client",
+  "authors": [
+    {
+      "name": "Marek Bartoš",
+      "homepage": "https://marek-bartos.cz"
+    }
+  ],
+  "require": {
+    "php": "^7.2",
+    "league/oauth2-client": "^2.4.1",
+    "nette/http": "~2.4"
+  },
+  "require-dev": {
+    "league/oauth2-facebook": "^2.0",
+    "league/oauth2-google": "^3.0",
+    "mockery/mockery": "^1.2",
+    "ninjify/qa": "^0.9.0",
+    "phpstan/phpstan-deprecation-rules": "^0.11",
+    "phpstan/phpstan-nette": "^0.11",
+    "phpstan/phpstan-shim": "^0.11",
+    "phpstan/phpstan-strict-rules": "^0.11",
+    "phpunit/phpunit": "^8.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Contributte\\OAuth2Client\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\Contributte\\OAuth2Client\\": "tests"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "sort-packages": true
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-develop": "0.1.x-dev"
+    }
+  }
+}
