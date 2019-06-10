@@ -22,11 +22,6 @@
 |-------------|---------|----------|--------|
 | stable      | `^0.1`  | `master` | `^7.2` |
 
-
-## Looking for more?
-
-Overview of our packages, examples, release notes, contacts at the developers and more could be found on the website [contributte.org](https://contributte.org).
-
 ## Maintainers
 
 <table>
