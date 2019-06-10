@@ -18,7 +18,7 @@
   "require": {
     "php": "^7.2",
     "league/oauth2-client": "^2.4.1",
-    "nette/http": "~2.4"
+    "nette/http": "~3.0.1"
   },
   "require-dev": {
     "league/oauth2-facebook": "^2.0",
@@ -49,7 +49,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-develop": "0.1.x-dev"
+      "dev-develop": "0.3.x-dev"
     }
   }
 }
