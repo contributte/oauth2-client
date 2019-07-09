@@ -148,7 +148,7 @@ class SignPresenter extends Presenter
 
 Create link to authentication action
 
-```latte
+```smarty
 <a href="{plink :Front:Sign:googleAuthenticate}">Sign in with Google</a>
 ```
 
