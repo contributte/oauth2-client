@@ -38,7 +38,7 @@ Take a look at [integration](#integration) for usage
       clientSecret:
       graphApiVersion: v3.2
     ])
-  - Contributte\OAuth2Client\Flow\Facebook\Facebook\AuthCodeFlow
+  - Contributte\OAuth2Client\Flow\Facebook\FacebookAuthCodeFlow
   ```
 
 ### Others
