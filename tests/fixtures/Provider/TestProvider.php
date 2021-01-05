@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Tests\Contributte\OAuth2Client\Fixtures\Provider;
+namespace Tests\Fixtures\Provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;

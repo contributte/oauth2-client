@@ -25,11 +25,11 @@
     "league/oauth2-google": "^3.0",
     "mockery/mockery": "^1.2",
     "ninjify/qa": "^0.12",
+    "ninjify/nunjuck": "^0.4",
     "phpstan/phpstan": "^0.12",
     "phpstan/phpstan-deprecation-rules": "^0.12",
     "phpstan/phpstan-nette": "^0.12",
-    "phpstan/phpstan-strict-rules": "^0.12",
-    "phpunit/phpunit": "^8.1"
+    "phpstan/phpstan-strict-rules": "^0.12"
   },
   "autoload": {
     "psr-4": {
@@ -38,7 +38,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Tests\\Contributte\\OAuth2Client\\": "tests"
+      "Tests\\": "tests"
     }
   },
   "minimum-stability": "dev",
