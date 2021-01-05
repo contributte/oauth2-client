@@ -7,7 +7,7 @@
     "client"
   ],
   "type": "library",
-  "license": "MPL-2.0",
+  "license": "MIT",
   "homepage": "https://github.com/contributte/oauth2-client",
   "authors": [
     {
