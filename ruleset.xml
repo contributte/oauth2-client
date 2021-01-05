@@ -1,14 +1,22 @@
 <?xml version="1.0"?>
 <ruleset>
+	<!-- Contributte Coding Standard -->
 	<rule ref="./vendor/ninjify/coding-standard/contributte.xml"/>
 
-	<!-- Package specific rules -->
+	<!-- Specific rules -->
 	<rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
 		<properties>
-			<property name="rootNamespaces" type="array" value="
-                src=>Contributte\OAuth2Client,
-                tests=>Tests\Contributte\OAuth2Client,
-            "/>
+			<property name="rootNamespaces" type="array">
+				<element key="src" value="Contributte\OAuth2Client"/>
+				<element key="tests/cases" value="Tests\Cases"/>
+				<element key="tests/fixtures" value="Tests\Fixtures"/>
+			</property>
 		</properties>
 	</rule>
+
+	<!--Exclude folders -->
+	<exclude-pattern>/tests/tmp</exclude-pattern>
 </ruleset>
+
+
+

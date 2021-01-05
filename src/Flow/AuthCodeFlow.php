@@ -66,9 +66,7 @@ abstract class AuthCodeFlow
 		}
 
 		// Try to get an access token (using the authorization code grant)
-		$token = $this->provider->getAccessToken('authorization_code', ['code' => $parameters['code']]);
-
-		return $token;
+		return $this->provider->getAccessToken('authorization_code', ['code' => $parameters['code']]);
 	}
 
 	public function getProvider(): AbstractProvider
