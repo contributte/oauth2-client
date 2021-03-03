@@ -20,10 +20,10 @@
 
 ## Usage
 
-To install latest version of `contributte/oauth2-client` use [Composer](https://getcomposer.com).
+To install latest version of `contributte/oauth2-client` use [Composer](https://getcomposer.org).
 
 ```
-composer require contributte/oauth2-client
+$ composer require contributte/oauth2-client
 ```
 
 ## Documentation
