@@ -22,7 +22,7 @@
 
 To install latest version of `contributte/oauth2-client` use [Composer](https://getcomposer.com).
 
-```
+```bash
 composer require contributte/oauth2-client
 ```
 
