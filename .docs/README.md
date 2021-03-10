@@ -18,13 +18,13 @@ Take a look at [integration](#integration) for usage
 - [Credentials source](https://developers.google.com/identity/protocols/OpenIDConnect#registeringyourapp)
 - Flow registration
 
-```yaml
+```neon
 services:
-    - Contributte\OAuth2Client\Flow\Google\GoogleProvider([
-        clientId:
-        clientSecret:
-    ])
-  - Contributte\OAuth2Client\Flow\Google\GoogleAuthCodeFlow
+	- Contributte\OAuth2Client\Flow\Google\GoogleProvider([
+		clientId:
+		clientSecret:
+	])
+	- Contributte\OAuth2Client\Flow\Google\GoogleAuthCodeFlow
 ```
 
 ### Facebook
@@ -32,15 +32,15 @@ services:
 - Implemented package [league/oauth2-facebook](https://github.com/thephpleague/oauth2-facebook)
 - [Credentials source](https://developers.facebook.com/docs/facebook-login/overview)
 - Flow registration
-  ```yaml
-  services:
-  - Contributte\OAuth2Client\Flow\Facebook\FacebookProvider([
-      clientId:
-      clientSecret:
-      graphApiVersion: v3.2
-    ])
-  - Contributte\OAuth2Client\Flow\Facebook\FacebookAuthCodeFlow
-  ```
+```neon
+services:
+	- Contributte\OAuth2Client\Flow\Facebook\FacebookProvider([
+		clientId:
+		clientSecret:
+		graphApiVersion: v3.2
+	])
+	- Contributte\OAuth2Client\Flow\Facebook\FacebookAuthCodeFlow
+```
 
 ### Others
 
@@ -62,13 +62,13 @@ Get your oauth2 credentials (`clientId` and `clientSecret`) from [Google website
 
 Register flow
 
-```yaml
+```neon
 services:
-  - Contributte\OAuth2Client\Flow\Google\GoogleProvider([
-      clientId:
-      clientSecret:
-    ])
-  - Contributte\OAuth2Client\Flow\Google\GoogleAuthCodeFlow
+	- Contributte\OAuth2Client\Flow\Google\GoogleProvider([
+		clientId:
+		clientSecret:
+	])
+	- Contributte\OAuth2Client\Flow\Google\GoogleAuthCodeFlow
 ```
 
 Create a control which can handle authentication and authorization
