@@ -17,29 +17,30 @@ Take a look at [integration](#integration) for usage
 - Implemented package [league/oauth2-google](https://github.com/thephpleague/oauth2-google)
 - [Credentials source](https://developers.google.com/identity/protocols/OpenIDConnect#registeringyourapp)
 - Flow registration
-  ```yaml
-  services:
-  - Contributte\OAuth2Client\Flow\Google\GoogleProvider([
-      clientId: 
-      clientSecret:
-    ])
-  - Contributte\OAuth2Client\Flow\Google\GoogleAuthCodeFlow
-  ```
+
+```neon
+services:
+	- Contributte\OAuth2Client\Flow\Google\GoogleProvider([
+		clientId:
+		clientSecret:
+	])
+	- Contributte\OAuth2Client\Flow\Google\GoogleAuthCodeFlow
+```
 
 ### Facebook
 
 - Implemented package [league/oauth2-facebook](https://github.com/thephpleague/oauth2-facebook)
 - [Credentials source](https://developers.facebook.com/docs/facebook-login/overview)
 - Flow registration
-  ```yaml
-  services:
-  - Contributte\OAuth2Client\Flow\Facebook\FacebookProvider([
-      clientId: 
-      clientSecret:
-      graphApiVersion: v3.2
-    ])
-  - Contributte\OAuth2Client\Flow\Facebook\FacebookAuthCodeFlow
-  ```
+```neon
+services:
+	- Contributte\OAuth2Client\Flow\Facebook\FacebookProvider([
+		clientId:
+		clientSecret:
+		graphApiVersion: v3.2
+	])
+	- Contributte\OAuth2Client\Flow\Facebook\FacebookAuthCodeFlow
+```
 
 ### Others
 
@@ -61,13 +62,13 @@ Get your oauth2 credentials (`clientId` and `clientSecret`) from [Google website
 
 Register flow
 
-```yaml
+```neon
 services:
-  - Contributte\OAuth2Client\Flow\Google\GoogleProvider([
-      clientId: 
-      clientSecret:
-    ])
-  - Contributte\OAuth2Client\Flow\Google\GoogleAuthCodeFlow
+	- Contributte\OAuth2Client\Flow\Google\GoogleProvider([
+		clientId:
+		clientSecret:
+	])
+	- Contributte\OAuth2Client\Flow\Google\GoogleAuthCodeFlow
 ```
 
 Create a control which can handle authentication and authorization
@@ -127,28 +128,28 @@ use Nette\Application\UI\Presenter;
 
 class SignPresenter extends Presenter
 {
-	
+
 	public function actionGoogleAuthenticate(): void
 	{
 		$this['googleButton']->authenticate();
 	}
-	
+
 	public function actionGoogleAuthorize(): void
 	{
 		$this['googleButton']->authorize($this->getHttpRequest()->getQuery());
 	}
-	
+
 	protected function createComponentGoogleButton(): GoogleButton
 	{
 		// TODO - create and return GoogleButton control
 	}
-	
+
 }
 ```
 
 Create link to authentication action
 
-```smarty
+```latte
 <a href="{plink :Front:Sign:googleAuthenticate}">Sign in with Google</a>
 ```
 
