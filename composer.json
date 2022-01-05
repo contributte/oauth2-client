@@ -17,8 +17,8 @@
   ],
   "repositories": [
     {
-      "type": "vcs",
-      "url": "git@github.com:f3l1x/oauth2-facebook.git"
+      "type": "git",
+      "url": "https://github.com/f3l1x/oauth2-facebook"
     }
   ],
   "require": {
@@ -32,10 +32,10 @@
     "mockery/mockery": "^1.3.3",
     "ninjify/qa": "^0.12",
     "ninjify/nunjuck": "^0.4",
-    "phpstan/phpstan": "^0.12",
-    "phpstan/phpstan-deprecation-rules": "^0.12",
-    "phpstan/phpstan-nette": "^0.12",
-    "phpstan/phpstan-strict-rules": "^0.12"
+    "phpstan/phpstan": "^1.0",
+    "phpstan/phpstan-deprecation-rules": "^1.0",
+    "phpstan/phpstan-nette": "^1.0",
+    "phpstan/phpstan-strict-rules": "^1.0"
   },
   "autoload": {
     "psr-4": {
