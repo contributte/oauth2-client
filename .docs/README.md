@@ -97,22 +97,17 @@ class GoogleButton extends Control
 		$this->flow = $flow;
 	}
 
-	public function authenticate(): void
+	public function authenticate(string $authorizationUrl): void
 	{
-		$this->flow->getProvider()->setRedirectUri(
-			$this->presenter->link('//:Sign:googleAuthorize')
+		$this->presenter->redirectUrl(
+		  $this->flow->getAuthorizationUrl($authorizationUrl)
 		);
-		$this->presenter->redirectUrl($this->flow->getAuthorizationUrl());
 	}
 
-	public function authorize(array $parameters): void
+	public function authorize(array $parameters = null): void
 	{
-		// Setup propel redirect URL
-		$this->flow->getProvider()->setRedirectUri(
-			$this->presenter->link('//:Sign:googleAuthorize')
-		);
-
 		try {
+			$parameters = $parameters ?? $this->getPresenter()->getHttpRequest()->getQuery();
 			$accessToken = $this->flow->getAccessToken($parameters);
 		} catch (IdentityProviderException $e) {
 			// TODO - Identity provider failure, cannot get information about user
@@ -131,23 +126,27 @@ Add control to sign presenter
 
 ```php
 use Nette\Application\UI\Presenter;
+use Contributte\OAuth2Client\Flow\Google\GoogleAuthCodeFlow;
 
 class SignPresenter extends Presenter
 {
 
+	/** @inject */
+	public GoogleAuthCodeFlow $googleAuthCodeFlow;
+
 	public function actionGoogleAuthenticate(): void
 	{
-		$this['googleButton']->authenticate();
+		$this['googleButton']->authenticate($this->presenter->link('//:Sign:googleAuthorize'));
 	}
 
 	public function actionGoogleAuthorize(): void
 	{
-		$this['googleButton']->authorize($this->getHttpRequest()->getQuery());
+		$this['googleButton']->authorize();
 	}
 
 	protected function createComponentGoogleButton(): GoogleButton
 	{
-		// TODO - create and return GoogleButton control
+		return new GoogleButton($this->googleAuthCodeFlow);
 	}
 
 }

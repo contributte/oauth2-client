@@ -21,13 +21,13 @@ class GoogleAuthCodeFlow extends AuthCodeFlow
 	/**
 	 * @inheritdoc
 	 */
-	public function getAccessToken(array $parameters): AccessTokenInterface
+	public function getAccessToken(array $parameters, ?string $redirectUri = null): AccessTokenInterface
 	{
 		if (isset($parameters['error'])) {
 			throw new UserProbablyDeniedAccessException($parameters['error']);
 		}
 
-		return parent::getAccessToken($parameters);
+		return parent::getAccessToken($parameters, $redirectUri);
 	}
 
 }
