@@ -19,12 +19,14 @@ Take a look at [integration](#integration) for usage
 - Flow registration
 
 ```neon
-services:
-	- Contributte\OAuth2Client\Flow\Google\GoogleProvider([
-		clientId:
-		clientSecret:
-	])
-	- Contributte\OAuth2Client\Flow\Google\GoogleAuthCodeFlow
+google:
+	clientId: '...'
+	clientSecret: '...'
+	options:
+		# optionally additional options passed to GoogleProvider
+
+extensions:
+	google: Contributte\OAuth2Client\DI\GoogleAuthExtension
 ```
 
 ### Facebook
@@ -33,13 +35,15 @@ services:
 - [Credentials source](https://developers.facebook.com/docs/facebook-login/overview)
 - Flow registration
 ```neon
-services:
-	- Contributte\OAuth2Client\Flow\Facebook\FacebookProvider([
-		clientId:
-		clientSecret:
-		graphApiVersion: v3.2
-	])
-	- Contributte\OAuth2Client\Flow\Facebook\FacebookAuthCodeFlow
+facebook:
+	clientId: '...'
+	clientSecret: '...'
+	graphApiVersion: 'v14.0'
+	options:
+		 # optionally additional options passed to FacebookProvider
+
+extensions:
+	facebook: Contributte\OAuth2Client\DI\FacebookAuthExtension
 ```
 
 ### Others
@@ -63,12 +67,14 @@ Get your oauth2 credentials (`clientId` and `clientSecret`) from [Google website
 Register flow
 
 ```neon
-services:
-	- Contributte\OAuth2Client\Flow\Google\GoogleProvider([
-		clientId:
-		clientSecret:
-	])
-	- Contributte\OAuth2Client\Flow\Google\GoogleAuthCodeFlow
+google:
+	clientId: '...'
+	clientSecret: '...'
+	options:
+		# optionally additional options passed to GoogleProvider
+
+extensions:
+	google: Contributte\OAuth2Client\DI\GoogleAuthExtension
 ```
 
 Create a control which can handle authentication and authorization
