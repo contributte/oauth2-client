@@ -56,7 +56,7 @@ List of all providers is [here](https://github.com/thephpleague/oauth2-client/bl
 
 This example uses Google as provider with integration through [league/oauth2-google](https://github.com/thephpleague/oauth2-google)
 
-Install package
+### Install package
 
 ```bash
 composer require league/oauth2-google
@@ -64,7 +64,7 @@ composer require league/oauth2-google
 
 Get your oauth2 credentials (`clientId` and `clientSecret`) from [Google website](https://developers.google.com/identity/protocols/OpenIDConnect#registeringyourapp)
 
-Register flow
+### Register flow
 
 ```neon
 google:
@@ -77,7 +77,9 @@ extensions:
 	google: Contributte\OAuth2Client\DI\GoogleAuthExtension
 ```
 
-Create a control which can handle authentication and authorization
+### A) Create custom control
+
+Create custom control which can handle authentication and authorization.
 
 ```php
 use Contributte\OAuth2Client\Flow\Google\GoogleAuthCodeFlow;
@@ -154,6 +156,66 @@ class SignPresenter extends Presenter
 ```
 
 Create link to authentication action
+
+```latte
+<a href="{plink :Front:Sign:googleAuthenticate}">Sign in with Google</a>
+```
+
+### B) Use `GenericAuthControl`
+
+Add `GenericAuthControl` control to sign presenter
+
+```php
+use Nette\Application\UI\Presenter;
+use Contributte\OAuth2Client\Flow\Google\GoogleAuthCodeFlow;
+use League\OAuth2\Client\Provider\GoogleUser;
+use League\OAuth2\Client\Token\AccessToken;
+
+class SignPresenter extends Presenter
+{
+
+	public function actionGoogleAuthenticate(): void
+	{
+		$this['googleButton']->authenticate();
+	}
+
+	public function actionGoogleAuthorize(): void
+	{
+		$this['googleButton']->authorize();
+	}
+
+	protected function createComponentGoogleButton(): GoogleButton
+	{
+		$authControl = new GenericAuthControl(
+			$this->googleAuthFlow,
+			$this->presenter->link('//:Sign:googleAuthorize')
+		);
+		$authControl->setTemplate(__DIR__ . "/googleAuthLatte.latte");
+		$authControl->onAuthenticate[] = function(AccessToken $accessToken, GoogleUser $user) {
+			// TODO - try sign in user with it's email ($owner->getEmail())
+		}
+		$authControl->onFail[] = function() {
+			// TODO - Identity provider failure, cannot get information about user
+		}
+		return $authControl;
+	}
+
+}
+```
+
+Create custom template for authentication control.
+
+```latte
+<a href="{link authenticate!}">Sign in with Google</a>
+```
+
+Use control in presenter template.
+
+```latte
+{control googleButton}
+```
+
+Or create link to authentication action in presenter template
 
 ```latte
 <a href="{plink :Front:Sign:googleAuthenticate}">Sign in with Google</a>
