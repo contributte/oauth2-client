@@ -46,6 +46,23 @@ extensions:
 	facebook: Contributte\OAuth2Client\DI\FacebookAuthExtension
 ```
 
+### Gitlab
+
+- Implemented package [omines/oauth2-gitlab](https://github.com/omines/oauth2-gitlab)
+- [Credentials source](https://docs.gitlab.com/ee/integration/oauth_provider.html)
+- Flow registration
+```neon
+gitlab:
+	clientId: '...'
+	clientSecret: '...'
+	domain: 'https://gitlab.com'
+	options:
+		 # optionally additional options passed to GitlabProvider
+
+extensions:
+	facebook: Contributte\OAuth2Client\DI\GitlabAuthExtension
+```
+
 ### Others
 
 You could implement other providers which support auth code authentication by extending `Contributte\OAuth2Client\Flow\AuthCodeFlow`. Other authentication methods are currently not supported (PR is welcome).
