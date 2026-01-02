@@ -13,20 +13,17 @@ use UnexpectedValueException;
 class GenericAuthControl extends Control
 {
 
-	/** @var AuthCodeFlow */
-	private $authCodeFlow;
+	/** @var array<callable> */
+	public array $onAuthenticated = [];
 
-	/** @var string|null */
-	private $redirectUri = null;
+	/** @var array<callable> */
+	public array $onFailed = [];
 
-	/** @var string|null */
-	private $templatePath = null;
+	private AuthCodeFlow $authCodeFlow;
 
-	/** @var array<callable>  */
-	public $onAuthenticated = [];
+	private ?string $redirectUri = null;
 
-	/** @var array<callable>  */
-	public $onFailed = [];
+	private ?string $templatePath = null;
 
 	public function __construct(AuthCodeFlow $authCodeFlow, ?string $redirectUri = null)
 	{
@@ -61,22 +58,13 @@ class GenericAuthControl extends Control
 
 			$user = $this->authCodeFlow->getProvider()->getResourceOwner($accessToken);
 			$this->authenticationSucceed($accessToken, $user);
+
 			return $user;
 		} catch (IdentityProviderException $e) {
 			$this->authenticationFailed();
 		}
 
 		return null;
-	}
-
-	protected function authenticationFailed(): void
-	{
-		$this->onFailed();
-	}
-
-	protected function authenticationSucceed(AccessToken $accessToken, ResourceOwnerInterface $user): void
-	{
-		$this->onAuthenticated($accessToken, $user);
 	}
 
 	public function render(): void
@@ -87,6 +75,16 @@ class GenericAuthControl extends Control
 		}
 
 		$template->render($this->templatePath ?? __DIR__ . '/GenericAuthControl.latte');
+	}
+
+	protected function authenticationFailed(): void
+	{
+		$this->onFailed();
+	}
+
+	protected function authenticationSucceed(AccessToken $accessToken, ResourceOwnerInterface $user): void
+	{
+		$this->onAuthenticated($accessToken, $user);
 	}
 
 }

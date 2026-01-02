@@ -16,11 +16,9 @@ abstract class AuthCodeFlow
 
 	public const SESSION_NAMESPACE = 'contributte.oauth2client';
 
-	/** @var AbstractProvider */
-	protected $provider;
+	protected AbstractProvider $provider;
 
-	/** @var Session */
-	protected $session;
+	protected Session $session;
 
 	public function __construct(AbstractProvider $provider, Session $session)
 	{
@@ -32,7 +30,7 @@ abstract class AuthCodeFlow
 	 * @param string|mixed[]|null $redirectUriOrOptions
 	 * @param mixed[] $options
 	 */
-	public function getAuthorizationUrl($redirectUriOrOptions = null, array $options = []): string
+	public function getAuthorizationUrl(string|array|null $redirectUriOrOptions = null, array $options = []): string
 	{
 		if (is_array($redirectUriOrOptions)) {
 			$options = array_merge($options, $redirectUriOrOptions);
@@ -73,13 +71,14 @@ abstract class AuthCodeFlow
 		if (isset($session['state']) && $parameters['state'] !== $session['state']) {
 			unset($session['state']);
 			unset($session['redirect_uri']);
+
 			throw new PossibleCsrfAttackException();
 		}
 
 		$options = array_filter([
 			'code' => $parameters['code'],
 			'redirect_uri' => $redirectUri ?? $session['redirect_uri'] ?? null,
-		]);
+		], fn ($v) => $v !== null);
 
 		// Try to get an access token (using the authorization code grant)
 		return $this->provider->getAccessToken('authorization_code', $options);

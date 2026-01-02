@@ -8,14 +8,14 @@ qa: phpstan cs
 .PHONY: cs
 cs:
 ifdef GITHUB_ACTION
-	vendor/bin/codesniffer -q --report=checkstyle --extensions="php,phpt" src tests | cs2pr
+	vendor/bin/phpcs -q --report=checkstyle --standard=./ruleset.xml --extensions="php,phpt" src tests | cs2pr
 else
-	vendor/bin/codesniffer --extensions="php,phpt" src tests
+	vendor/bin/phpcs --standard=./ruleset.xml --extensions="php,phpt" src tests
 endif
 
 .PHONY: csf
 csf:
-	vendor/bin/codefixer --extensions="php,phpt" src tests
+	vendor/bin/phpcbf --standard=./ruleset.xml --extensions="php,phpt" src tests
 
 .PHONY: phpstan
 phpstan:
