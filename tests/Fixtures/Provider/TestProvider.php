@@ -40,6 +40,7 @@ class TestProvider extends AbstractProvider
 	/**
 	 * @param mixed[]|string $data Parsed response data
 	 * @throws IdentityProviderException
+	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
 	 */
 	protected function checkResponse(ResponseInterface $response, $data): void
 	{

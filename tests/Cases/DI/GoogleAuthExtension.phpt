@@ -1,8 +1,12 @@
 <?php declare(strict_types = 1);
 
+namespace Tests\Cases\DI;
+
 use Contributte\OAuth2Client\DI\GoogleAuthExtension;
 use Contributte\OAuth2Client\Flow\Google\GoogleAuthCodeFlow;
 use Contributte\OAuth2Client\Flow\Google\GoogleProvider;
+use Contributte\Tester\Environment;
+use Contributte\Tester\Toolkit;
 use Nette\Bridges\HttpDI\HttpExtension;
 use Nette\Bridges\HttpDI\SessionExtension;
 use Nette\DI\Compiler;
@@ -12,9 +16,8 @@ use Tester\Assert;
 
 require_once __DIR__ . '/../../bootstrap.php';
 
-
-test(function (): void {
-	$loader = new ContainerLoader(TEMP_DIR, true);
+Toolkit::test(function (): void {
+	$loader = new ContainerLoader(Environment::getTestDir(), true);
 	$class = $loader->load(function (Compiler $compiler): void {
 		$compiler->addExtension('http', new HttpExtension())
 			->addExtension('session', new SessionExtension())
@@ -35,8 +38,8 @@ test(function (): void {
 	Assert::type(GoogleProvider::class, $container->getService('google.authCodeFlow')->getProvider());
 });
 
-test(function (): void {
-	$loader = new ContainerLoader(TEMP_DIR, true);
+Toolkit::test(function (): void {
+	$loader = new ContainerLoader(Environment::getTestDir(), true);
 	$class = $loader->load(function (Compiler $compiler): void {
 		$compiler->addExtension('http', new HttpExtension())
 			->addExtension('session', new SessionExtension())
@@ -57,8 +60,9 @@ test(function (): void {
 	// Services created
 	Assert::contains('redirect_uri=https%2F%2Flocalhost%2Fredirect', $container->getService('google.provider')->getAuthorizationUrl());
 });
-test(function (): void {
-	$loader = new ContainerLoader(TEMP_DIR, true);
+
+Toolkit::test(function (): void {
+	$loader = new ContainerLoader(Environment::getTestDir(), true);
 	$class = $loader->load(function (Compiler $compiler): void {
 		$compiler->addExtension('http', new HttpExtension())
 			->addExtension('session', new SessionExtension())

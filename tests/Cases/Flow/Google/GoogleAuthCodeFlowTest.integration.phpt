@@ -1,22 +1,21 @@
 <?php declare(strict_types = 1);
 
-namespace Tests\Cases\Flow;
+namespace Tests\Cases\Flow\Google;
 
-use Contributte\OAuth2Client\Flow\Facebook\FacebookAuthCodeFlow;
-use Contributte\OAuth2Client\Flow\Facebook\FacebookProvider;
+use Contributte\OAuth2Client\Flow\Google\GoogleAuthCodeFlow;
+use Contributte\OAuth2Client\Flow\Google\GoogleProvider;
+use Contributte\Tester\Toolkit;
 use Mockery;
 use Nette\Http\Session;
 use Nette\Http\SessionSection;
-use Ninjify\Nunjuck\Toolkit;
 use Tester\Assert;
 
 require_once __DIR__ . '/../../../bootstrap.php';
 
 Toolkit::test(function (): void {
-	$provider = new FacebookProvider([
+	$provider = new GoogleProvider([
 		'clientId' => 'foo',
 		'clientSecret' => 'bar',
-		'graphApiVersion' => 'v3.2',
 	]);
 
 	$sessionSection = Mockery::mock(SessionSection::class);
@@ -26,11 +25,11 @@ Toolkit::test(function (): void {
 	$session->shouldReceive('getSection')
 		->andReturn($sessionSection);
 
-	$flow = new FacebookAuthCodeFlow($provider, $session);
+	$flow = new GoogleAuthCodeFlow($provider, $session);
 
 	Assert::same(
-		'https://www.facebook.com/v3.2/dialog/oauth?state=myState&redirect_uri=https%3A%2F%2Flocalhost%2Fredirect_uri' .
-		'&scope=public_profile%2Cemail&response_type=code&approval_prompt=auto&client_id=foo',
+		'https://accounts.google.com/o/oauth2/v2/auth?state=myState&redirect_uri=https%3A%2F%2Flocalhost%2Fredirect_uri' .
+		'&scope=openid%20email%20profile&response_type=code&client_id=foo',
 		$flow->getAuthorizationUrl('https://localhost/redirect_uri', ['state' => 'myState'])
 	);
 });

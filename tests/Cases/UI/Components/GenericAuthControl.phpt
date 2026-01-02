@@ -1,9 +1,10 @@
 <?php declare(strict_types = 1);
 
-namespace Tests\Cases\Flow;
+namespace Tests\Cases\UI\Components;
 
 use Contributte\OAuth2Client\Flow\AuthCodeFlow;
 use Contributte\OAuth2Client\UI\Components\GenericAuthControl;
+use Contributte\Tester\Toolkit;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Provider\GenericResourceOwner;
@@ -13,7 +14,6 @@ use Nette\Application\AbortException;
 use Nette\Application\Responses\RedirectResponse;
 use Nette\Http\Request;
 use Nette\Http\UrlScript;
-use Ninjify\Nunjuck\Toolkit;
 use Tester\Assert;
 use Tester\Environment;
 use Tests\Fixtures\Presenter\TestPresenter;
@@ -31,7 +31,7 @@ Toolkit::test(function (): void {
 	$authControl = new GenericAuthControl($flow, 'https://localhost/redirect');
 	$presenter = new TestPresenter($authControl);
 
-	Assert::exception(function () use ($authControl) {
+	Assert::exception(function () use ($authControl): void {
 		$authControl->authenticate();
 	}, AbortException::class);
 
@@ -57,13 +57,13 @@ Toolkit::test(function (): void {
 
 	$request = new Request(new UrlScript('https://localhost/redirect?code=123'));
 
-	$events = [];
+	$events = new \ArrayObject();
 
 	$authControl = new GenericAuthControl($flow, 'https://localhost/redirect');
-	$authControl->onAuthenticated[] = function ($accessToken, $user) use (&$events) {
+	$authControl->onAuthenticated[] = function ($accessToken, $user) use ($events): void {
 		$events[] = ['onAuthenticated', $accessToken, $user];
 	};
-	$authControl->onFailed[] = function () use (&$events) {
+	$authControl->onFailed[] = function () use ($events): void {
 		$events[] = ['onFailed'];
 	};
 	new TestPresenter($authControl, $request);
@@ -85,13 +85,13 @@ Toolkit::test(function (): void {
 
 	$request = new Request(new UrlScript('https://localhost/redirect?code=123'));
 
-	$events = [];
+	$events = new \ArrayObject();
 
 	$authControl = new GenericAuthControl($flow, 'https://localhost/redirect');
-	$authControl->onAuthenticated[] = function ($accessToken, $user) use (&$events) {
+	$authControl->onAuthenticated[] = function ($accessToken, $user) use ($events): void {
 		$events[] = ['onAuthenticated', $accessToken, $user];
 	};
-	$authControl->onFailed[] = function () use (&$events) {
+	$authControl->onFailed[] = function () use ($events): void {
 		$events[] = ['onFailed'];
 	};
 	new TestPresenter($authControl, $request);
