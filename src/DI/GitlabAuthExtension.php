@@ -20,7 +20,7 @@ class GitlabAuthExtension extends CompilerExtension
 		return Expect::structure([
 			'clientId' => Expect::string()->required(),
 			'clientSecret' => Expect::string()->required(),
-            'domain' => Expect::string()->required(),
+			'domain' => Expect::string()->required(),
 			'options' => Expect::array(),
 		]);
 	}
@@ -42,7 +42,7 @@ class GitlabAuthExtension extends CompilerExtension
 
 		$builder->addDefinition($this->prefix('provider'))
 			->setFactory(GitlabProvider::class, [$providerOptions]);
-    
+
 		$builder->addDefinition($this->prefix('authCodeFlow'))
 			->setFactory(GitlabAuthCodeFlow::class, ['@' . $this->prefix('provider')]);
 	}
