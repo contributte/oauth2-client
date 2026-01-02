@@ -12,41 +12,39 @@ use Nette\Http\UrlScript;
 final class TestPresenter extends Presenter
 {
 
-	/** @var Component */
-	private $component;
+	public HttpRequest $httpRequest;
 
-	/** @var HttpRequest */
-	public $httpRequest;
+	public HttpResponse $httpResponse;
 
-	/** @var HttpResponse */
-	public $httpResponse;
+	public Response $response;
 
-	/**	@var Response */
-	public $response;
+	private Component $component;
 
 	public function __construct(Component $component, ?HttpRequest $request = null, ?HttpResponse $response = null)
 	{
 		parent::__construct();
+
+		$httpRequest = $request ?? new HttpRequest(new UrlScript('http://localhost/page'));
+		$httpResponse = $response ?? new HttpResponse();
+
 		$this->injectPrimary(
-			null,
-			null,
-			null,
-			$request ?? new HttpRequest(new UrlScript('http://localhost/page')),
-			$response ?? new HttpResponse()
+			$httpRequest,
+			$httpResponse
 		);
 		$this->component = $component;
 		$this->getComponent('subject');
 	}
 
-	protected function createComponentSubject(): Component
-	{
-		return $this->component;
-	}
-
 	public function sendResponse(Response $response): void
 	{
 		$this->response = $response;
+
 		parent::sendResponse($response);
+	}
+
+	protected function createComponentSubject(): Component
+	{
+		return $this->component;
 	}
 
 }

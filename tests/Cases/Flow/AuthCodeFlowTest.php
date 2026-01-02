@@ -4,12 +4,12 @@ namespace Tests\Cases\Flow;
 
 use Contributte\OAuth2Client\Exception\Logical\InvalidArgumentException;
 use Contributte\OAuth2Client\Exception\Runtime\PossibleCsrfAttackException;
+use Contributte\Tester\Toolkit;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Token\AccessTokenInterface;
 use Mockery;
 use Nette\Http\Session;
 use Nette\Http\SessionSection;
-use Ninjify\Nunjuck\Toolkit;
 use Tester\Assert;
 use Tests\Fixtures\Flow\TestAuthCodeFlow;
 use Tests\Fixtures\Provider\TestProvider;
