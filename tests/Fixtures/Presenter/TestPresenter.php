@@ -5,16 +5,15 @@ namespace Tests\Fixtures\Presenter;
 use Nette\Application\Response;
 use Nette\Application\UI\Component;
 use Nette\Application\UI\Presenter;
+use Nette\Http\IRequest;
+use Nette\Http\IResponse;
 use Nette\Http\Request as HttpRequest;
 use Nette\Http\Response as HttpResponse;
 use Nette\Http\UrlScript;
+use ReflectionMethod;
 
 final class TestPresenter extends Presenter
 {
-
-	public HttpRequest $httpRequest;
-
-	public HttpResponse $httpResponse;
 
 	public Response $response;
 
@@ -27,10 +26,7 @@ final class TestPresenter extends Presenter
 		$httpRequest = $request ?? new HttpRequest(new UrlScript('http://localhost/page'));
 		$httpResponse = $response ?? new HttpResponse();
 
-		$this->injectPrimary(
-			$httpRequest,
-			$httpResponse
-		);
+		$this->injectPrimaryCompat($httpRequest, $httpResponse);
 		$this->component = $component;
 		$this->getComponent('subject');
 	}
@@ -45,6 +41,24 @@ final class TestPresenter extends Presenter
 	protected function createComponentSubject(): Component
 	{
 		return $this->component;
+	}
+
+	/**
+	 * Compatibility wrapper for injectPrimary across Nette versions
+	 */
+	private function injectPrimaryCompat(IRequest $httpRequest, IResponse $httpResponse): void
+	{
+		$method = new ReflectionMethod(Presenter::class, 'injectPrimary');
+		$params = $method->getParameters();
+		$firstParamName = $params[0]->getName();
+
+		if ($firstParamName === 'httpRequest') {
+			// Nette 3.2.x older signature
+			$this->injectPrimary($httpRequest, $httpResponse);
+		} else {
+			// Nette 3.2.x newer signature with $context first
+			$this->injectPrimary(null, $httpRequest, $httpResponse);
+		}
 	}
 
 }
