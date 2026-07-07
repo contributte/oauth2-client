@@ -37,7 +37,7 @@ composer require contributte/oauth2-client
 
 ## Supported flows
 
-Take a look at [integration](#integration) for usage
+See [Integration](#integration) for a Google OAuth flow example.
 
 ### Google
 
@@ -61,6 +61,7 @@ extensions:
 - Implemented package [league/oauth2-facebook](https://github.com/thephpleague/oauth2-facebook)
 - [Credentials source](https://developers.facebook.com/docs/facebook-login/overview)
 - Flow registration
+
 ```neon
 facebook:
 	clientId: '...'
@@ -78,6 +79,7 @@ extensions:
 - Implemented package [omines/oauth2-gitlab](https://github.com/omines/oauth2-gitlab)
 - [Credentials source](https://docs.gitlab.com/ee/integration/oauth_provider.html)
 - Flow registration
+
 ```neon
 gitlab:
 	clientId: '...'
